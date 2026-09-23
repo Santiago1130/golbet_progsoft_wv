@@ -1,4 +1,4 @@
-﻿"profiles": {
+﻿{"profiles": {
   "http": {
     "commandName": "Project",
     "dotnetRunMessages": true,
@@ -18,4 +18,4 @@
     }
   }
 }
-}
+}}

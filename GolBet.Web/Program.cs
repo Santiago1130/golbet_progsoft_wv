@@ -1,12 +1,16 @@
 using GolBet.Repositories.Data;
 using GolBet.Repositories.Implementations;
 using GolBet.Repositories.Interfaces;
+using GolBet.Services.Implementations;
+using GolBet.Services.Interfaces;
+using GolBet.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 IMvcBuilder mvcBuilder = builder.Services.AddControllersWithViews();
+
 
 
 //este nuevo codigo
@@ -18,7 +22,22 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+// Specific repositories 
+
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+
+
 var app = builder.Build();
+
+// AutoMapper: scans the assembly containing MappingProfile for all profiles 
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+
+
+// Business services 
+
+builder.Services.AddScoped<IMatchService, MatchService>();
 
 // Seed the database on startup 
 
@@ -31,11 +50,6 @@ using (var scope = app.Services.CreateScope())
     await DbSeeder.SeedAsync(context);
 
 }
-
-// Specific repositories 
-
-builder.Services.AddScoped<IMatchRepository, MatchRepository>();
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
