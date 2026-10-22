@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.11.12306.390
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GolBet.Web", "GolBet.Web\GolBet.Web.csproj", "{B2389046-26CC-4BBD-A520-5B32572ADE01}"
 EndProject
@@ -15,9 +15,6 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B2389046-26CC-4BBD-A520-5B32572ADE01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -36,5 +33,11 @@ Global
 		{43A38F57-3706-4E08-AAD9-2EA406C579F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43A38F57-3706-4E08-AAD9-2EA406C579F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43A38F57-3706-4E08-AAD9-2EA406C579F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9D4286E-3B75-417B-B987-F1756D8084BC}
 	EndGlobalSection
 EndGlobal
