@@ -6,12 +6,15 @@ using GolBet.Services.Interfaces;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using GolBet.Repositories.Data;
 
 
 
 namespace GolBet.Web.Controllers;
 
 
+[Authorize(Roles = DbSeeder.AdminRole)]
 
 public class MatchesController : Controller
 
@@ -62,6 +65,9 @@ public class MatchesController : Controller
         return View(match);
 
     }
+
+    [Authorize(Roles = DbSeeder.AdminRole)]
+
     // GET /Matches/Create 
 
     public async Task<IActionResult> Create()
@@ -76,6 +82,7 @@ public class MatchesController : Controller
 
 
 
+    [Authorize(Roles = DbSeeder.AdminRole)]
     [HttpPost, ValidateAntiForgeryToken]
 
     public async Task<IActionResult> Create(Services.DTOs.MatchFormDto dto)
@@ -121,6 +128,7 @@ public class MatchesController : Controller
     }
 
 
+    [Authorize(Roles = DbSeeder.AdminRole)]
 
     // GET /Matches/Edit/5 
 
@@ -140,7 +148,7 @@ public class MatchesController : Controller
 
     }
 
-
+    [Authorize(Roles = DbSeeder.AdminRole)]
 
     // POST /Matches/Edit 
 
@@ -188,7 +196,7 @@ public class MatchesController : Controller
 
     }
 
-
+    [Authorize(Roles = DbSeeder.AdminRole)]
 
     // POST /Matches/Deactivate/5 
 
