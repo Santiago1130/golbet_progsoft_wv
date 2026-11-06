@@ -68,6 +68,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddScoped<IMatchService, MatchService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<IBetService, BetService>();
 
 
 // Specific repositories 
