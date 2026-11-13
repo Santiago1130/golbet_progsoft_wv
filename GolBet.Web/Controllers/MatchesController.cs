@@ -1,13 +1,12 @@
 ﻿// GolBet.Web/Controllers/MatchesController.cs  (versión completa) 
 
 using GolBet.Entities.Enums;
-
+using GolBet.Repositories.Data;
+using GolBet.Services.DTOs;
 using GolBet.Services.Interfaces;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Authorization;
-using GolBet.Repositories.Data;
 
 
 
@@ -214,6 +213,93 @@ public class MatchesController : Controller
 
     }
 
+    // POST /Matches/Start/5 
+
+    [HttpPost, ValidateAntiForgeryToken]
+
+    [Authorize(Roles = DbSeeder.AdminRole)]
+
+    public async Task<IActionResult> Start(int id)
+
+    {
+
+        try
+
+        {
+
+            await _matchService.StartMatchAsync(id);
+
+            TempData["Success"] = "¡Partido en juego! Las apuestas quedaron cerradas.";
+
+        }
+
+        catch (InvalidOperationException ex)
+
+        {
+
+            TempData["Error"] = ex.Message;
+
+        }
+
+
+
+        return RedirectToAction(nameof(Detail), new { id });
+
+    }
+
+
+
+    // POST /Matches/Close  -> close and resolve 
+
+    [HttpPost, ValidateAntiForgeryToken]
+
+    [Authorize(Roles = DbSeeder.AdminRole)]
+
+    public async Task<IActionResult> Close(MatchResultFormDto dto)
+
+    {
+
+        if (!ModelState.IsValid)
+
+        {
+
+            ViewBag.Match = await _matchService.GetDetailAsync(dto.MatchId);
+
+            return View(dto);
+
+        }
+
+
+
+        try
+
+        {
+
+            var summary = await _matchService.CloseMatchAsync(dto);
+
+            TempData["Success"] =
+
+                $"Partido cerrado {dto.HomeGoals}-{dto.AwayGoals}. " +
+
+                $"{summary.ResolvedBets} apuestas resueltas: {summary.WonBets} ganadas, " +
+
+                $"{summary.TotalPaid:N0} FutCoins pagados.";
+
+        }
+
+        catch (InvalidOperationException ex)
+
+        {
+
+            TempData["Error"] = ex.Message;
+
+        }
+
+
+
+        return RedirectToAction(nameof(Detail), new { id = dto.MatchId });
+
+    }
 
 
     private async Task LoadTeamsAsync()

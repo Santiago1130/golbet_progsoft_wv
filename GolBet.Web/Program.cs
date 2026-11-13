@@ -74,7 +74,7 @@ builder.Services.AddScoped<IBetService, BetService>();
 // Specific repositories 
 
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
-
+builder.Services.AddScoped<IBetRepository, BetRepository>();
 
 var app = builder.Build();
 

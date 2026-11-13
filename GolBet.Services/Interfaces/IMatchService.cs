@@ -27,4 +27,8 @@ public interface IMatchService
 
     Task DeactivateAsync(int id);
 
+    Task StartMatchAsync(int id);
+
+    Task<ResolutionSummaryDto> CloseMatchAsync(MatchResultFormDto dto);
+
 }
